@@ -1,5 +1,6 @@
 import { app, BrowserWindow, shell } from 'electron';
 import path from 'node:path';
+import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { initDatabaseAsync, closeDatabase, SettingsRepository } from './database/db';
 import { DeviceDiscoveryService } from './services/DeviceDiscoveryService';
@@ -27,6 +28,14 @@ if (!gotTheLock) {
 }
 
 async function createWindow() {
+  const possibleIcons = [
+    path.join(process.cwd(), 'icon.ico'),
+    path.join(__dirname, '../icon.ico'),
+    path.join(__dirname, '../public/icon.ico'),
+    path.join(process.cwd(), 'public/icon.ico')
+  ];
+  const appIcon = possibleIcons.find(p => fs.existsSync(p));
+
   mainWindow = new BrowserWindow({
     title: 'WiFi Guard',
     width: 1280,
@@ -36,6 +45,7 @@ async function createWindow() {
     backgroundColor: '#0f172a',
     show: false,
     autoHideMenuBar: true,
+    icon: appIcon,
     webPreferences: {
       preload: path.join(__dirname, 'index.mjs'),
       contextIsolation: true,
