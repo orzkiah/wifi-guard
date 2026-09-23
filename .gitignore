@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build artifacts
+dist/
+dist-electron/
+release/
+
+# Database and local credentials
+.data/
+*.db
+*.db-wal
+*.db-shm
+*.bin
+secure_creds.bin
+
+# OS & IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*.log
+
+# Android build artifacts & cache
+android/.gradle/
+android/build/
+android/app/build/
+android/capacitor-cordova-android-plugins/build/
+android/local.properties
+.gradle/
+
