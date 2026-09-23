@@ -9,9 +9,11 @@ import { TrustedView } from './views/TrustedView';
 import { HistoryView } from './views/HistoryView';
 import { RouterView } from './views/RouterView';
 import { SettingsView } from './views/SettingsView';
+import { TutorialView } from './views/TutorialView';
 import { DeviceDetailDrawer } from './components/DeviceDetailDrawer';
 import { BlockConfirmModal } from './components/BlockConfirmModal';
 import { LoginModal } from './components/LoginModal';
+import { TutorialModal } from './components/TutorialModal';
 import { useAppStore } from './stores/useAppStore';
 
 export const App: React.FC = () => {
@@ -38,6 +40,7 @@ export const App: React.FC = () => {
           {currentView === 'history' && <HistoryView />}
           {currentView === 'router' && <RouterView />}
           {currentView === 'settings' && <SettingsView />}
+          {currentView === 'tutorial' && <TutorialView />}
         </main>
 
         {/* 4-Item Core Mobile Bottom Navigation */}
@@ -48,6 +51,7 @@ export const App: React.FC = () => {
       <DeviceDetailDrawer />
       <BlockConfirmModal />
       <LoginModal />
+      <TutorialModal />
     </div>
   );
 };

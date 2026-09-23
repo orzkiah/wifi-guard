@@ -3,7 +3,7 @@ import { Device, DeviceEvent } from '../../shared/types/device';
 import { RouterStatusSummary, RouterCredentials } from '../../shared/types/router';
 import { AppSettings, BlockOptions } from '../../shared/types/ipc';
 
-export type ViewName = 'dashboard' | 'devices' | 'blocked' | 'trusted' | 'history' | 'router' | 'settings';
+export type ViewName = 'dashboard' | 'devices' | 'blocked' | 'trusted' | 'history' | 'router' | 'settings' | 'tutorial';
 
 interface AppState {
   currentView: ViewName;
@@ -15,6 +15,7 @@ interface AppState {
   selectedDevice: Device | null;
   deviceToBlock: Device | null;
   isLoginModalOpen: boolean;
+  isTutorialModalOpen: boolean;
   isMobileDrawerOpen: boolean;
   isSyncing: boolean;
   searchQuery: string;
@@ -24,6 +25,7 @@ interface AppState {
   setSelectedDevice: (device: Device | null) => void;
   setDeviceToBlock: (device: Device | null) => void;
   setIsLoginModalOpen: (open: boolean) => void;
+  setIsTutorialModalOpen: (open: boolean) => void;
   setIsMobileDrawerOpen: (open: boolean) => void;
   setSearchQuery: (query: string) => void;
   setFilterTab: (tab: 'all' | '2.4GHz' | '5GHz' | 'trusted' | 'unknown' | 'blocked') => void;
@@ -40,6 +42,14 @@ interface AppState {
   updateSettings: (updates: Partial<AppSettings>) => Promise<void>;
 }
 
+const shouldShowTutorialInitial = (): boolean => {
+  try {
+    return localStorage.getItem('wifiguard_has_seen_tutorial') !== 'true';
+  } catch {
+    return false;
+  }
+};
+
 export const useAppStore = create<AppState>((set, get) => ({
   currentView: 'dashboard',
   devices: [],
@@ -50,6 +60,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   selectedDevice: null,
   deviceToBlock: null,
   isLoginModalOpen: false,
+  isTutorialModalOpen: shouldShowTutorialInitial(),
   isMobileDrawerOpen: false,
   isSyncing: false,
   searchQuery: '',
@@ -59,6 +70,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   setSelectedDevice: (device) => set({ selectedDevice: device }),
   setDeviceToBlock: (device) => set({ deviceToBlock: device }),
   setIsLoginModalOpen: (open) => set({ isLoginModalOpen: open }),
+  setIsTutorialModalOpen: (open) => set({ isTutorialModalOpen: open }),
   setIsMobileDrawerOpen: (open) => set({ isMobileDrawerOpen: open }),
   setSearchQuery: (query) => set({ searchQuery: query }),
   setFilterTab: (tab) => set({ filterTab: tab }),

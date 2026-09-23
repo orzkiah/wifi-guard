@@ -1,5 +1,5 @@
 import React from 'react';
-import { RefreshCw, KeyRound, Wifi, Cpu, Menu, LogOut } from 'lucide-react';
+import { RefreshCw, KeyRound, Wifi, Cpu, Menu, LogOut, HelpCircle } from 'lucide-react';
 import { useAppStore } from '../stores/useAppStore';
 
 export const TopBar: React.FC = () => {
@@ -8,6 +8,7 @@ export const TopBar: React.FC = () => {
     isSyncing,
     syncDevices,
     setIsLoginModalOpen,
+    setIsTutorialModalOpen,
     setIsMobileDrawerOpen,
     settings,
     logoutRouter
@@ -84,7 +85,17 @@ export const TopBar: React.FC = () => {
           title="Scan and Sync Devices from Router"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-sky-400' : ''}`} />
-          <span className="hidden sm:inline">{isSyncing ? 'Scanning...' : 'Sync Devices'}</span>
+          <span className="hidden sm:inline">{isSyncing ? 'Scanning...' : 'Sync'}</span>
+        </button>
+
+        {/* Tutorial / Help Center Button */}
+        <button
+          onClick={() => setIsTutorialModalOpen(true)}
+          className="p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-sky-400 text-xs font-semibold transition-all border border-slate-700/60 flex items-center space-x-1"
+          title="Buka Panduan & Tutorial"
+        >
+          <HelpCircle className="w-3.5 h-3.5 text-sky-400" />
+          <span className="hidden sm:inline">Bantuan</span>
         </button>
 
         {/* Router Login / Config / Logout Buttons */}

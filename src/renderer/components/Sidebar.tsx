@@ -9,7 +9,8 @@ import {
   Settings,
   Shield,
   Wifi,
-  X
+  X,
+  HelpCircle
 } from 'lucide-react';
 import { useAppStore, ViewName } from '../stores/useAppStore';
 
@@ -69,6 +70,11 @@ export const Sidebar: React.FC = () => {
       id: 'settings',
       label: 'Settings',
       icon: <Settings className="w-5 h-5" />
+    },
+    {
+      id: 'tutorial',
+      label: 'Panduan & Tutorial',
+      icon: <HelpCircle className="w-5 h-5" />
     }
   ];
 
