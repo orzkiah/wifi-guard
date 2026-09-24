@@ -10,6 +10,7 @@ import { HistoryView } from './views/HistoryView';
 import { RouterView } from './views/RouterView';
 import { SettingsView } from './views/SettingsView';
 import { TutorialView } from './views/TutorialView';
+import { SpeedTestView } from './views/SpeedTestView';
 import { DeviceDetailDrawer } from './components/DeviceDetailDrawer';
 import { BlockConfirmModal } from './components/BlockConfirmModal';
 import { LoginModal } from './components/LoginModal';
@@ -35,6 +36,7 @@ export const App: React.FC = () => {
         <main className="flex-1 overflow-hidden bg-slate-950 min-h-0">
           {currentView === 'dashboard' && <DashboardView />}
           {currentView === 'devices' && <DevicesView />}
+          {currentView === 'speedtest' && <SpeedTestView />}
           {currentView === 'blocked' && <BlockedView />}
           {currentView === 'trusted' && <TrustedView />}
           {currentView === 'history' && <HistoryView />}

@@ -10,7 +10,8 @@ import {
   Shield,
   Wifi,
   X,
-  HelpCircle
+  HelpCircle,
+  Gauge
 } from 'lucide-react';
 import { useAppStore, ViewName } from '../stores/useAppStore';
 
@@ -41,6 +42,11 @@ export const Sidebar: React.FC = () => {
       icon: <Smartphone className="w-5 h-5" />,
       badge: totalDevices,
       badgeColor: 'bg-slate-700 text-slate-200'
+    },
+    {
+      id: 'speedtest',
+      label: 'Speed Test',
+      icon: <Gauge className="w-5 h-5" />
     },
     {
       id: 'trusted',

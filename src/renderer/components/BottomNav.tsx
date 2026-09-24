@@ -2,6 +2,7 @@ import React from 'react';
 import {
   LayoutDashboard,
   Smartphone,
+  Gauge,
   ShieldCheck,
   ShieldBan
 } from 'lucide-react';
@@ -22,10 +23,15 @@ export const BottomNav: React.FC = () => {
     },
     {
       id: 'devices',
-      label: 'All Devices',
+      label: 'Devices',
       icon: <Smartphone className="w-5 h-5" />,
       badge: totalDevices,
       badgeColor: 'bg-sky-600 text-white border-sky-900'
+    },
+    {
+      id: 'speedtest',
+      label: 'Speed',
+      icon: <Gauge className="w-5 h-5" />
     },
     {
       id: 'trusted',

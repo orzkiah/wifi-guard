@@ -9,7 +9,9 @@ import {
   ArrowUpRight,
   Laptop,
   Smartphone,
-  AlertTriangle
+  AlertTriangle,
+  Gauge,
+  ArrowRight
 } from 'lucide-react';
 import { useAppStore } from '../stores/useAppStore';
 
@@ -207,6 +209,36 @@ export const DashboardView: React.FC = () => {
           <div className="mt-1 text-[11px] text-slate-400 truncate">
             In router MAC filter
           </div>
+        </div>
+      </div>
+
+      {/* Quick Speed Test Banner */}
+      <div
+        onClick={() => setCurrentView('speedtest')}
+        className="rounded-xl bg-gradient-to-r from-sky-950/60 via-slate-900 to-slate-900 border border-sky-500/30 p-4 sm:p-5 flex items-center justify-between cursor-pointer hover:border-sky-400/60 transition-all group shadow-lg shadow-sky-950/20"
+      >
+        <div className="flex items-center space-x-3.5">
+          <div className="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center border border-sky-500/20 group-hover:scale-105 transition-transform shrink-0">
+            <Gauge className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-sky-300 transition-colors">
+                Uji Kecepatan Jaringan (Speed Test)
+              </h3>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 font-semibold">
+                Baru
+              </span>
+            </div>
+            <p className="text-xs text-slate-400 mt-0.5">
+              Cek real-time throughput unduh/unggah, ping gaming, dan stabilitas jitter Wi-Fi Anda.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-1.5 text-xs font-bold text-sky-400 shrink-0 ml-2 group-hover:translate-x-1 transition-transform">
+          <span className="hidden sm:inline">Uji Sekarang</span>
+          <ArrowRight className="w-4 h-4" />
         </div>
       </div>
 

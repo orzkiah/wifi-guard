@@ -3,7 +3,7 @@ import { Device, DeviceEvent } from '../../shared/types/device';
 import { RouterStatusSummary, RouterCredentials } from '../../shared/types/router';
 import { AppSettings, BlockOptions } from '../../shared/types/ipc';
 
-export type ViewName = 'dashboard' | 'devices' | 'blocked' | 'trusted' | 'history' | 'router' | 'settings' | 'tutorial';
+export type ViewName = 'dashboard' | 'devices' | 'speedtest' | 'blocked' | 'trusted' | 'history' | 'router' | 'settings' | 'tutorial';
 
 interface AppState {
   currentView: ViewName;
