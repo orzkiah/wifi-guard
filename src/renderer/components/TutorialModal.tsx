@@ -10,7 +10,6 @@ import {
   X,
   Sparkles,
   CheckCircle2,
-  Clock,
   HelpCircle
 } from 'lucide-react';
 import { useAppStore } from '../stores/useAppStore';

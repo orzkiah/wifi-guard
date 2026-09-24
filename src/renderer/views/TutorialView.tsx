@@ -5,20 +5,17 @@ import {
   Wifi,
   ShieldCheck,
   ShieldBan,
-  LogOut,
   ChevronDown,
   ChevronUp,
   Sparkles,
   AlertTriangle,
   Server,
-  Smartphone,
-  ExternalLink,
   CheckCircle2
 } from 'lucide-react';
 import { useAppStore } from '../stores/useAppStore';
 
 export const TutorialView: React.FC = () => {
-  const { setIsTutorialModalOpen, setCurrentView } = useAppStore();
+  const { setIsTutorialModalOpen } = useAppStore();
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const quickSteps = [

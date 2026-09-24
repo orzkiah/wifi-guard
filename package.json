@@ -67,11 +67,16 @@
       "dist",
       "dist-electron"
     ],
+    "compression": "maximum",
     "win": {
       "target": [
-        "nsis",
-        "portable"
-      ]
+        "nsis"
+      ],
+      "artifactName": "WiFiGuard-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false
     }
   }
 }
