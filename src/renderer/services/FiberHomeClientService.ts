@@ -28,6 +28,34 @@ export class FiberHomeClientService {
     return this.routerIp;
   }
 
+  /**
+   * Automatically discovers the active Wi-Fi Gateway IP by probing common network subnets
+   */
+  async detectGateway(): Promise<string> {
+    const candidates = ['192.168.1.1', '192.168.0.1', '192.168.100.1', '192.168.18.1', '192.168.31.1', '10.0.0.1'];
+    if (this.routerIp && !candidates.includes(this.routerIp)) {
+      candidates.unshift(this.routerIp);
+    }
+
+    for (const ip of candidates) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 1000);
+        const res = await fetch(`http://${ip}/cgi-bin/ajax?ajaxmethod=get_device_name&_=${Date.now()}`, {
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        if (res.ok || res.status === 200 || res.status === 401 || res.status === 403) {
+          this.routerIp = ip;
+          return ip;
+        }
+      } catch {
+        // Continue to next candidate
+      }
+    }
+    return this.routerIp || '192.168.1.1';
+  }
+
   private getBaseUrl(): string {
     if (Capacitor.isNativePlatform()) {
       return `http://${this.routerIp}`;

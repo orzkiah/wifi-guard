@@ -294,7 +294,7 @@ export function initBrowserFallback() {
 
   const fallbackApi: WiFiGuardAPI = {
     router: {
-      detectGateway: async () => clientService.getRouterIp(),
+      detectGateway: async () => clientService.detectGateway(),
       getInfo: async () => clientService.getDeviceInfo(),
       testConnection: async (ip) => clientService.testConnection(ip),
       login: async (creds) => {

@@ -87,6 +87,13 @@ export const useAppStore = create<AppState>((set, get) => ({
 
       set({ settings, devices, routerStatus, hostMacs, events: history });
 
+      // Automatically discover and probe active Wi-Fi Gateway
+      window.wifiGuard.router.detectGateway().then((detectedGateway) => {
+        if (detectedGateway && detectedGateway !== settings?.routerIp) {
+          console.info('[WiFi Guard] Active Wi-Fi Gateway discovered:', detectedGateway);
+        }
+      }).catch(() => {});
+
       // Listen for background streaming updates
       window.wifiGuard.on('devices:updated', (updatedDevices: Device[]) => {
         set({ devices: updatedDevices });
