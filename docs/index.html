@@ -299,6 +299,52 @@
             </div>
 
           </div>
+
+          <!-- Under-Image Dynamic Info & Quick Action Cards -->
+          <div class="mt-4 sm:mt-5 space-y-3">
+            
+            <!-- Dynamic Specs Pill Grid -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+              <div class="flex items-center justify-between mb-3 text-xs">
+                <span class="font-bold text-slate-900 uppercase tracking-wider text-[11px] flex items-center space-x-1.5">
+                  <svg class="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                  </svg>
+                  <span>Spesifikasi & Keunggulan Modul</span>
+                </span>
+                <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                  Live Highlight
+                </span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5" id="specs-pill-container">
+                <!-- Dynamically populated via JS -->
+              </div>
+            </div>
+
+            <!-- Mini CTA Card (Fast Action for Testers) -->
+            <div class="bg-slate-900 text-white rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div class="flex items-center space-x-3 text-left w-full sm:w-auto">
+                <div class="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-emerald-400 shrink-0">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-xs sm:text-sm font-bold text-white tracking-tight">Coba Modul Ini di Jaringan Anda</h4>
+                  <p class="text-[11px] text-slate-400">Tersedia masing-masing 10 kuota khusus penguji.</p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2 w-full sm:w-auto shrink-0">
+                <button type="button" class="btn-open-tester-modal flex-1 sm:flex-initial px-3.5 py-2 rounded-lg bg-white hover:bg-slate-100 text-slate-950 text-xs font-bold transition-all shadow-sm cursor-pointer" data-target="android">
+                  Unduh APK
+                </button>
+                <button type="button" class="btn-open-tester-modal flex-1 sm:flex-initial px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold border border-slate-700 transition-all cursor-pointer" data-target="windows">
+                  Unduh Windows
+                </button>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
@@ -711,6 +757,57 @@
       let timer = null;
       let isPaused = false;
 
+      const TAB_SPECS = [
+        // 01 Dashboard
+        [
+          { label: "Latensi Router", value: "14 ms (Real-time)" },
+          { label: "Alokasi Frekuensi", value: "2.4 GHz & 5 GHz" },
+          { label: "Proteksi Host", value: "Self-Block Guard Aktif" }
+        ],
+        // 02 All Devices
+        [
+          { label: "Deteksi Klien", value: "Wi-Fi Stations & DHCP" },
+          { label: "Identifikasi", value: "IP, MAC Fisik & Vendor" },
+          { label: "Aksi Instan", value: "1-Click Trust / Block" }
+        ],
+        // 03 Trusted
+        [
+          { label: "Mode Proteksi", value: "Whitelist Anggota Keluarga" },
+          { label: "Prioritas Akses", value: "Bebas Gangguan Pemutusan" },
+          { label: "Isolasi Otomatis", value: "Pisahkan Tamu / Penyusup" }
+        ],
+        // 04 Blocked
+        [
+          { label: "Tingkat Eksekusi", value: "Hardware MAC Filter" },
+          { label: "Efisiensi Daya", value: "0% Baterai (Router Level)" },
+          { label: "Sistem", value: "100% Tanpa Perlu Root" }
+        ],
+        // 05 Activity Logs
+        [
+          { label: "Pencatatan", value: "Audit Trail Detik-demi-Detik" },
+          { label: "Riwayat Event", value: "New Device, Block, Unblock" },
+          { label: "Verifikasi", value: "Timestamp Akurat & Transparan" }
+        ],
+        // 06 Router Hardware
+        [
+          { label: "Model Didukung", value: "FiberHome HG6145D2" },
+          { label: "Firmware / Operator", value: "RP3478 / IDN_IMI" },
+          { label: "Topologi Gateway", value: "192.168.1.1 (Subnet /24)" }
+        ],
+        // 07 Settings
+        [
+          { label: "Interval Pemindaian", value: "5s, 10s, 30s, 60s" },
+          { label: "Notifikasi Sistem", value: "Native Windows Toast OS" },
+          { label: "Keamanan Sesi", value: "Auto-Refresh & Logout" }
+        ],
+        // 08 Tutorial & Help
+        [
+          { label: "Langkah Memulai", value: "4 Langkah Cepat Onboarding" },
+          { label: "Panduan Solusi", value: "FAQ Penanganan Sesi Bentrok" },
+          { label: "Bantuan Resmi", value: "Pop-up Interaktif Bawaan" }
+        ]
+      ];
+
       function renderActiveState(index) {
         activeIndex = index;
 
@@ -768,6 +865,17 @@
             slide.classList.add('opacity-0', 'scale-95', 'pointer-events-none', 'z-0');
           }
         });
+
+        // Update Specs Pills
+        const specsContainer = document.getElementById('specs-pill-container');
+        if (specsContainer && TAB_SPECS[index]) {
+          specsContainer.innerHTML = TAB_SPECS[index].map(spec => `
+            <div class="p-2.5 sm:p-3 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-center">
+              <span class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-0.5">${spec.label}</span>
+              <span class="text-xs sm:text-[13px] font-bold text-slate-900 truncate">${spec.value}</span>
+            </div>
+          `).join('');
+        }
 
         // Update counter
         if (counterEl) {
