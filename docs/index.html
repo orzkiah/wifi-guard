@@ -54,6 +54,7 @@
       </div>
 
       <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+        <a href="#antarmuka" class="hover:text-slate-900 transition-colors">Antarmuka</a>
         <a href="#fitur" class="hover:text-slate-900 transition-colors">Fitur</a>
         <a href="#cara-kerja" class="hover:text-slate-900 transition-colors">Cara Kerja</a>
         <a href="#perbandingan" class="hover:text-slate-900 transition-colors">Perbandingan</a>
@@ -122,112 +123,134 @@
     </div>
   </section>
 
-  <!-- Clean UI Mockup Showcase -->
-  <section class="py-12 bg-slate-50 border-b border-slate-200">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6">
-      <div class="text-center mb-8">
-        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Tampilan Antarmuka</h2>
-        <p class="text-lg font-bold text-slate-900">Dirancang Sederhana, Presisi, dan Bersih</p>
+  <!-- Interactive Showcase / VerticalTabs Section -->
+  <section id="antarmuka" class="py-16 sm:py-24 bg-slate-50 border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="mb-10 sm:mb-14">
+        <span class="text-[10px] font-bold tracking-[0.25em] text-slate-500 uppercase block mb-1">FITUR & ANTARMUKA APLIKASI</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
+          Eksplorasi Fungsi & Desain WiFi Guard
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 mt-2 max-w-xl">
+          Klik setiap tab di bawah atau gunakan kontrol galeri untuk melihat tangkapan layar langsung dan fungsi operasional setiap modul.
+        </p>
       </div>
 
-      <!-- Mockup Card -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-        <!-- Mockup Header -->
-        <div class="px-5 py-3.5 bg-slate-100 border-b border-slate-200 flex items-center justify-between text-xs text-slate-600">
-          <div class="flex items-center space-x-2">
-            <span class="w-3 h-3 rounded-full bg-slate-300"></span>
-            <span class="w-3 h-3 rounded-full bg-slate-300"></span>
-            <span class="w-3 h-3 rounded-full bg-slate-300"></span>
-            <span class="ml-2 font-mono text-[11px] text-slate-500">Router Gateway: 192.168.1.1 (FiberHome HG6145D2)</span>
-          </div>
-          <div class="flex items-center space-x-1.5 text-emerald-700 font-semibold">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span>Online (14 ms)</span>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start" id="vertical-tabs-container">
+        <!-- Left Column: Content Tabs -->
+        <div class="lg:col-span-5 flex flex-col justify-center order-2 lg:order-1 pt-2">
+          <div class="flex flex-col space-y-0" id="tabs-list">
+
+            <!-- Tab 01 -->
+            <button type="button" class="tab-btn group relative flex items-start gap-4 py-5 sm:py-6 text-left transition-all duration-300 border-t border-slate-200 first:border-0 w-full cursor-pointer" data-index="0">
+              <div class="progress-track absolute left-[-12px] sm:left-[-20px] top-0 bottom-0 w-[2px] bg-slate-200">
+                <div class="progress-fill absolute top-0 left-0 w-full bg-slate-900 origin-top h-0 transition-all"></div>
+              </div>
+              <span class="tab-num text-[10px] font-bold font-mono mt-1 tabular-nums text-slate-400 group-hover:text-slate-700 transition-colors">/01</span>
+              <div class="flex flex-col gap-1.5 flex-1">
+                <span class="tab-title text-xl sm:text-2xl font-bold tracking-tight text-slate-400 group-hover:text-slate-800 transition-colors">Dashboard & Diagnostik</span>
+                <div class="tab-desc-wrapper overflow-hidden transition-all duration-300 max-h-0 opacity-0">
+                  <p class="text-slate-600 text-xs sm:text-sm font-normal leading-relaxed max-w-sm pb-1">
+                    Pantau kesehatan router FiberHome HG6145D2 secara real-time dengan latensi 14 ms, alokasi frekuensi 2.4 GHz vs 5 GHz, statistik perangkat online, serta deteksi instan perangkat asing.
+                  </p>
+                </div>
+              </div>
+            </button>
+
+            <!-- Tab 02 -->
+            <button type="button" class="tab-btn group relative flex items-start gap-4 py-5 sm:py-6 text-left transition-all duration-300 border-t border-slate-200 first:border-0 w-full cursor-pointer" data-index="1">
+              <div class="progress-track absolute left-[-12px] sm:left-[-20px] top-0 bottom-0 w-[2px] bg-slate-200">
+                <div class="progress-fill absolute top-0 left-0 w-full bg-slate-900 origin-top h-0 transition-all"></div>
+              </div>
+              <span class="tab-num text-[10px] font-bold font-mono mt-1 tabular-nums text-slate-400 group-hover:text-slate-700 transition-colors">/02</span>
+              <div class="flex flex-col gap-1.5 flex-1">
+                <span class="tab-title text-xl sm:text-2xl font-bold tracking-tight text-slate-400 group-hover:text-slate-800 transition-colors">Manajemen Semua Perangkat</span>
+                <div class="tab-desc-wrapper overflow-hidden transition-all duration-300 max-h-0 opacity-0">
+                  <p class="text-slate-600 text-xs sm:text-sm font-normal leading-relaxed max-w-sm pb-1">
+                    Daftar lengkap seluruh klien Wi-Fi aktif dan sewa IP DHCP. Dilengkapi info nama host, manufaktur vendor, IP, MAC fisik, kecepatan transmisi, dan tombol aksi blokir sekali ketuk.
+                  </p>
+                </div>
+              </div>
+            </button>
+
+            <!-- Tab 03 -->
+            <button type="button" class="tab-btn group relative flex items-start gap-4 py-5 sm:py-6 text-left transition-all duration-300 border-t border-slate-200 first:border-0 w-full cursor-pointer" data-index="2">
+              <div class="progress-track absolute left-[-12px] sm:left-[-20px] top-0 bottom-0 w-[2px] bg-slate-200">
+                <div class="progress-fill absolute top-0 left-0 w-full bg-slate-900 origin-top h-0 transition-all"></div>
+              </div>
+              <span class="tab-num text-[10px] font-bold font-mono mt-1 tabular-nums text-slate-400 group-hover:text-slate-700 transition-colors">/03</span>
+              <div class="flex flex-col gap-1.5 flex-1">
+                <span class="tab-title text-xl sm:text-2xl font-bold tracking-tight text-slate-400 group-hover:text-slate-800 transition-colors">Perangkat Terpercaya (Trusted)</span>
+                <div class="tab-desc-wrapper overflow-hidden transition-all duration-300 max-h-0 opacity-0">
+                  <p class="text-slate-600 text-xs sm:text-sm font-normal leading-relaxed max-w-sm pb-1">
+                    Kelola whitelist khusus untuk perangkat milik Anda dan anggota keluarga. Menjamin perangkat penting tidak terputus secara tidak sengaja serta membedakannya dari tamu asing.
+                  </p>
+                </div>
+              </div>
+            </button>
+
+            <!-- Tab 04 -->
+            <button type="button" class="tab-btn group relative flex items-start gap-4 py-5 sm:py-6 text-left transition-all duration-300 border-t border-slate-200 first:border-0 w-full cursor-pointer" data-index="3">
+              <div class="progress-track absolute left-[-12px] sm:left-[-20px] top-0 bottom-0 w-[2px] bg-slate-200">
+                <div class="progress-fill absolute top-0 left-0 w-full bg-slate-900 origin-top h-0 transition-all"></div>
+              </div>
+              <span class="tab-num text-[10px] font-bold font-mono mt-1 tabular-nums text-slate-400 group-hover:text-slate-700 transition-colors">/04</span>
+              <div class="flex flex-col gap-1.5 flex-1">
+                <span class="tab-title text-xl sm:text-2xl font-bold tracking-tight text-slate-400 group-hover:text-slate-800 transition-colors">Blokir Hardware Router</span>
+                <div class="tab-desc-wrapper overflow-hidden transition-all duration-300 max-h-0 opacity-0">
+                  <p class="text-slate-600 text-xs sm:text-sm font-normal leading-relaxed max-w-sm pb-1">
+                    Perintah blacklist dikirim langsung ke memori MAC filtering firewall router. Internet perangkat target terputus permanen 24 jam di tingkat router tanpa perlu root pada ponsel.
+                  </p>
+                </div>
+              </div>
+            </button>
+
+            <!-- Tab 05 -->
+            <button type="button" class="tab-btn group relative flex items-start gap-4 py-5 sm:py-6 text-left transition-all duration-300 border-t border-slate-200 first:border-0 w-full cursor-pointer" data-index="4">
+              <div class="progress-track absolute left-[-12px] sm:left-[-20px] top-0 bottom-0 w-[2px] bg-slate-200">
+                <div class="progress-fill absolute top-0 left-0 w-full bg-slate-900 origin-top h-0 transition-all"></div>
+              </div>
+              <span class="tab-num text-[10px] font-bold font-mono mt-1 tabular-nums text-slate-400 group-hover:text-slate-700 transition-colors">/05</span>
+              <div class="flex flex-col gap-1.5 flex-1">
+                <span class="tab-title text-xl sm:text-2xl font-bold tracking-tight text-slate-400 group-hover:text-slate-800 transition-colors">Log Aktivitas & Audit Riwayat</span>
+                <div class="tab-desc-wrapper overflow-hidden transition-all duration-300 max-h-0 opacity-0">
+                  <p class="text-slate-600 text-xs sm:text-sm font-normal leading-relaxed max-w-sm pb-1">
+                    Catatan linimasa komprehensif mendokumentasikan setiap perangkat baru yang terhubung, perubahan status, hingga aksi blokir dan unblock yang dapat diaudit kapan saja.
+                  </p>
+                </div>
+              </div>
+            </button>
+
           </div>
         </div>
 
-        <!-- Mockup Content -->
-        <div class="p-6 space-y-6">
-          <!-- Metrics Row -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <span class="text-xs font-medium text-slate-500 block mb-1">Total Perangkat</span>
-              <span class="text-2xl font-bold text-slate-900">8</span>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <span class="text-xs font-medium text-slate-500 block mb-1">Perangkat Dikenali</span>
-              <span class="text-2xl font-bold text-emerald-600">6</span>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <span class="text-xs font-medium text-slate-500 block mb-1">Perangkat Asing (Unknown)</span>
-              <span class="text-2xl font-bold text-amber-600">2</span>
-            </div>
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <span class="text-xs font-medium text-slate-500 block mb-1">Terblokir</span>
-              <span class="text-2xl font-bold text-slate-400">0</span>
-            </div>
-          </div>
-
-          <!-- Sample Device List -->
-          <div class="border border-slate-200 rounded-xl overflow-hidden">
-            <div class="px-4 py-2.5 bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 flex justify-between">
-              <span>DAFTAR PERANGKAT TERHUBUNG REAL-TIME</span>
-              <span>AKSI SATU KETUK</span>
-            </div>
+        <!-- Right Column: Interactive Gallery Screen -->
+        <div class="lg:col-span-7 flex flex-col justify-center h-full order-1 lg:order-2">
+          <div class="relative group/gallery rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl aspect-[16/10] sm:aspect-[16/9.5]" id="gallery-card">
             
-            <!-- Item 1 -->
-            <div class="p-3.5 sm:px-4 flex items-center justify-between border-b border-slate-100 hover:bg-slate-50 transition-colors">
-              <div class="flex items-center space-x-3">
-                <div class="w-9 h-9 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 font-bold text-xs">
-                  5G
-                </div>
-                <div>
-                  <div class="flex items-center space-x-2">
-                    <span class="text-xs sm:text-sm font-bold text-slate-900">Redmi Note 8 Pro</span>
-                    <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">Trusted</span>
-                  </div>
-                  <span class="text-[11px] font-mono text-slate-500">192.168.1.4 • 04:C8:07:93:57:E4</span>
-                </div>
-              </div>
-              <span class="text-xs font-semibold text-slate-400">Aman</span>
+            <!-- Slides -->
+            <div class="relative w-full h-full" id="slides-wrapper">
+              <img src="./screenshot-dashboard.png" alt="Dashboard WiFi Guard" class="gallery-slide absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-100 scale-100 z-10" data-slide="0">
+              <img src="./screenshot-devices.png" alt="Daftar Perangkat WiFi Guard" class="gallery-slide absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-0 scale-95 z-0 pointer-events-none" data-slide="1">
+              <img src="./screenshot-trusted.png" alt="Perangkat Terpercaya WiFi Guard" class="gallery-slide absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-0 scale-95 z-0 pointer-events-none" data-slide="2">
+              <img src="./screenshot-blocked.png" alt="Blacklist Perangkat WiFi Guard" class="gallery-slide absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-0 scale-95 z-0 pointer-events-none" data-slide="3">
+              <img src="./screenshot-logs.png" alt="Log Aktivitas WiFi Guard" class="gallery-slide absolute inset-0 w-full h-full object-cover transition-all duration-500 opacity-0 scale-95 z-0 pointer-events-none" data-slide="4">
             </div>
 
-            <!-- Item 2 -->
-            <div class="p-3.5 sm:px-4 flex items-center justify-between border-b border-slate-100 hover:bg-slate-50 transition-colors">
-              <div class="flex items-center space-x-3">
-                <div class="w-9 h-9 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 font-bold text-xs">
-                  5G
-                </div>
-                <div>
-                  <div class="flex items-center space-x-2">
-                    <span class="text-xs sm:text-sm font-bold text-slate-900">Galaxy M30s</span>
-                    <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">Trusted</span>
-                  </div>
-                  <span class="text-[11px] font-mono text-slate-500">192.168.1.10 • FE:55:51:FF:46:E2</span>
-                </div>
-              </div>
-              <span class="text-xs font-semibold text-slate-400">Aman</span>
+            <!-- Gradient bottom edge -->
+            <div class="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none z-10"></div>
+
+            <!-- Interactive Navigation Controls -->
+            <div class="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 flex items-center gap-2 z-20">
+              <span id="gallery-counter" class="px-2.5 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-[11px] font-mono text-white/90 border border-white/10 font-semibold shadow-md mr-1 select-none">01 / 05</span>
+              <button id="prev-tab-btn" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-slate-900 backdrop-blur-md border border-slate-200/50 flex items-center justify-center transition-all active:scale-90 shadow-lg cursor-pointer" aria-label="Previous">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+              </button>
+              <button id="next-tab-btn" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-slate-900 backdrop-blur-md border border-slate-200/50 flex items-center justify-center transition-all active:scale-90 shadow-lg cursor-pointer" aria-label="Next">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+              </button>
             </div>
 
-            <!-- Item 3 (Unknown / Actionable) -->
-            <div class="p-3.5 sm:px-4 flex items-center justify-between bg-amber-50/40 hover:bg-amber-50 transition-colors">
-              <div class="flex items-center space-x-3">
-                <div class="w-9 h-9 rounded-lg bg-amber-100 border border-amber-300 flex items-center justify-center text-amber-800 font-bold text-xs">
-                  2.4G
-                </div>
-                <div>
-                  <div class="flex items-center space-x-2">
-                    <span class="text-xs sm:text-sm font-bold text-slate-900">Perangkat Tak Dikenal</span>
-                    <span class="text-[10px] font-semibold text-amber-800 bg-amber-100 px-1.5 py-0.5 rounded border border-amber-200">Unknown</span>
-                  </div>
-                  <span class="text-[11px] font-mono text-slate-500">192.168.1.18 • A6:0E:FB:84:78:0E (Infinix)</span>
-                </div>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="hidden sm:inline-block px-2.5 py-1 rounded bg-white border border-slate-200 text-[11px] font-semibold text-slate-700">Tandai Keluarga</span>
-                <span class="px-2.5 py-1 rounded bg-rose-600 text-[11px] font-semibold text-white shadow-sm">Blokir Akses</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -547,5 +570,169 @@
     </div>
   </footer>
 
+  <!-- VerticalTabs Interactive Controller -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabs = Array.from(document.querySelectorAll('.tab-btn'));
+      const slides = Array.from(document.querySelectorAll('.gallery-slide'));
+      const counterEl = document.getElementById('gallery-counter');
+      const prevBtn = document.getElementById('prev-tab-btn');
+      const nextBtn = document.getElementById('next-tab-btn');
+      const container = document.getElementById('vertical-tabs-container');
+
+      if (!tabs.length || !slides.length) return;
+
+      const AUTO_PLAY_DURATION = 5000;
+      let activeIndex = 0;
+      let timer = null;
+      let isPaused = false;
+
+      function renderActiveState(index) {
+        activeIndex = index;
+
+        // Update tabs styling
+        tabs.forEach((tab, i) => {
+          const isActive = i === index;
+          const title = tab.querySelector('.tab-title');
+          const num = tab.querySelector('.tab-num');
+          const descWrapper = tab.querySelector('.tab-desc-wrapper');
+          const progressFill = tab.querySelector('.progress-fill');
+
+          if (isActive) {
+            tab.classList.add('active');
+            title.classList.remove('text-slate-400');
+            title.classList.add('text-slate-950');
+            num.classList.remove('text-slate-400');
+            num.classList.add('text-slate-900', 'font-bold');
+            descWrapper.classList.remove('max-h-0', 'opacity-0');
+            descWrapper.classList.add('max-h-48', 'opacity-100');
+
+            // Reset and trigger progress animation
+            if (progressFill) {
+              progressFill.style.transition = 'none';
+              progressFill.style.height = '0%';
+              requestAnimationFrame(() => {
+                if (!isPaused) {
+                  progressFill.style.transition = `height ${AUTO_PLAY_DURATION}ms linear`;
+                  progressFill.style.height = '100%';
+                }
+              });
+            }
+          } else {
+            tab.classList.remove('active');
+            title.classList.add('text-slate-400');
+            title.classList.remove('text-slate-950');
+            num.classList.add('text-slate-400');
+            num.classList.remove('text-slate-900', 'font-bold');
+            descWrapper.classList.add('max-h-0', 'opacity-0');
+            descWrapper.classList.remove('max-h-48', 'opacity-100');
+
+            if (progressFill) {
+              progressFill.style.transition = 'none';
+              progressFill.style.height = '0%';
+            }
+          }
+        });
+
+        // Update Slides
+        slides.forEach((slide, i) => {
+          if (i === index) {
+            slide.classList.remove('opacity-0', 'scale-95', 'pointer-events-none', 'z-0');
+            slide.classList.add('opacity-100', 'scale-100', 'z-10');
+          } else {
+            slide.classList.remove('opacity-100', 'scale-100', 'z-10');
+            slide.classList.add('opacity-0', 'scale-95', 'pointer-events-none', 'z-0');
+          }
+        });
+
+        // Update counter
+        if (counterEl) {
+          counterEl.textContent = `0${index + 1} / 0${tabs.length}`;
+        }
+      }
+
+      function startTimer() {
+        clearInterval(timer);
+        if (isPaused) return;
+
+        // Restart progress bar animation
+        const activeTab = tabs[activeIndex];
+        if (activeTab) {
+          const progressFill = activeTab.querySelector('.progress-fill');
+          if (progressFill) {
+            progressFill.style.transition = 'none';
+            progressFill.style.height = '0%';
+            requestAnimationFrame(() => {
+              progressFill.style.transition = `height ${AUTO_PLAY_DURATION}ms linear`;
+              progressFill.style.height = '100%';
+            });
+          }
+        }
+
+        timer = setInterval(() => {
+          if (!isPaused) {
+            const nextIndex = (activeIndex + 1) % tabs.length;
+            renderActiveState(nextIndex);
+          }
+        }, AUTO_PLAY_DURATION);
+      }
+
+      function stopTimer() {
+        clearInterval(timer);
+        const activeTab = tabs[activeIndex];
+        if (activeTab) {
+          const progressFill = activeTab.querySelector('.progress-fill');
+          if (progressFill) {
+            const currentHeight = window.getComputedStyle(progressFill).height;
+            progressFill.style.transition = 'none';
+            progressFill.style.height = currentHeight;
+          }
+        }
+      }
+
+      // Tab clicks
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => {
+          renderActiveState(index);
+          startTimer();
+        });
+      });
+
+      // Controls
+      if (nextBtn) {
+        nextBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const nextIndex = (activeIndex + 1) % tabs.length;
+          renderActiveState(nextIndex);
+          startTimer();
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const prevIndex = (activeIndex - 1 + tabs.length) % tabs.length;
+          renderActiveState(prevIndex);
+          startTimer();
+        });
+      }
+
+      // Pause on hover
+      if (container) {
+        container.addEventListener('mouseenter', () => {
+          isPaused = true;
+          stopTimer();
+        });
+        container.addEventListener('mouseleave', () => {
+          isPaused = false;
+          startTimer();
+        });
+      }
+
+      // Initialize first tab
+      renderActiveState(0);
+      startTimer();
+    });
+  </script>
 </body>
 </html>
