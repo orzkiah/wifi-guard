@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WiFi Guard — Kendali Penuh Keamanan Wi-Fi Rumah & Usaha Anda</title>
-  <meta name="description" content="Pantau seluruh perangkat yang tersambung secara instan, kenali perangkat asing, dan putus akses penyusup secara permanen di tingkat router. Tanpa perlu akses root, tanpa langganan wajib.">
+  <title>WiFi Guard — Sistem Pengontrol Akses Jaringan & Router</title>
+  <meta name="description" content="Aplikasi pemantau jaringan Wi-Fi mandiri dan proteksi router. Deteksi perangkat asing, tandai perangkat keluarga, dan blokir akses internet permanen di tingkat router tanpa root.">
   <link rel="icon" type="image/png" href="./icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +16,17 @@
         extend: {
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
           }
         }
       }
@@ -26,52 +37,38 @@
       font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       -webkit-font-smoothing: antialiased;
     }
-    .hero-mesh-glow {
-      background:
-        radial-gradient(circle at 10% 100%, rgba(56, 189, 248, 0.22) 0%, transparent 42%),
-        radial-gradient(circle at 50% 105%, rgba(134, 239, 172, 0.20) 0%, transparent 40%),
-        radial-gradient(circle at 90% 100%, rgba(251, 146, 60, 0.22) 0%, transparent 42%),
-        #FFFFFF;
+    .custom-border {
+      border-color: #E2E8F0;
     }
   </style>
 </head>
 <body class="bg-white text-slate-800 antialiased selection:bg-slate-900 selection:text-white">
 
-  <!-- Top Navigation Bar -->
-  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <!-- Left: Logo & Brand -->
+  <!-- Top Navigation -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="w-9 h-9 rounded-xl border border-slate-200/80 bg-sky-50/60 flex items-center justify-center p-1.5 shadow-xs">
-          <svg class="w-5 h-5 text-sky-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
-            <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
-            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
-            <line x1="12" y1="20" x2="12.01" y2="20"/>
-          </svg>
-        </div>
-        <span class="text-base font-extrabold tracking-tight text-slate-950">WiFi Guard</span>
-        <span class="text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200/60">v1.0</span>
+        <img src="./icon.png" alt="WiFi Guard Logo" class="w-8 h-8 rounded-lg border border-slate-200 shadow-sm">
+        <span class="text-base font-bold tracking-tight text-slate-900">WiFi Guard</span>
+        <span class="hidden sm:inline-block text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">v1.0</span>
       </div>
 
-      <!-- Center Links -->
-      <nav class="hidden md:flex items-center space-x-8 text-xs font-semibold text-slate-600">
-        <a href="#fitur" class="hover:text-slate-950 transition-colors">Fitur</a>
-        <a href="#cara-kerja" class="hover:text-slate-950 transition-colors">Cara Kerja</a>
-        <a href="#perbandingan" class="hover:text-slate-950 transition-colors">Perbandingan</a>
-        <a href="#kompatibilitas" class="hover:text-slate-950 transition-colors">Kompatibilitas</a>
-        <a href="#faq" class="hover:text-slate-950 transition-colors">FAQ</a>
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+        <a href="#fitur" class="hover:text-slate-900 transition-colors">Fitur</a>
+        <a href="#cara-kerja" class="hover:text-slate-900 transition-colors">Cara Kerja</a>
+        <a href="#perbandingan" class="hover:text-slate-900 transition-colors">Perbandingan</a>
+        <a href="#kompatibilitas" class="hover:text-slate-900 transition-colors">Kompatibilitas</a>
+        <a href="#faq" class="hover:text-slate-900 transition-colors">FAQ</a>
       </nav>
 
-      <!-- Right Action Buttons -->
-      <div class="flex items-center space-x-2.5">
-        <a href="https://github.com/orzkiah/wifi-guard" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center space-x-1.5 text-xs font-semibold text-slate-700 hover:text-slate-950 px-3.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all">
-          <svg class="w-3.5 h-3.5 text-slate-700" fill="currentColor" viewBox="0 0 24 24">
+      <div class="flex items-center space-x-3">
+        <a href="https://github.com/orzkiah/wifi-guard" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center space-x-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 px-3 py-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all">
+          <svg class="w-4 h-4 text-slate-700" fill="currentColor" viewBox="0 0 24 24">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
           </svg>
           <span>GitHub</span>
         </a>
-        <a href="#unduh" class="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs transition-all">
+        <a href="#unduh" class="inline-flex items-center space-x-1.5 px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition-all">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
           </svg>
@@ -81,84 +78,56 @@
     </div>
   </header>
 
-  <!-- Hero Section with Left & Right 3D Isometric Illustrations -->
-  <section class="relative pt-12 pb-14 lg:pt-16 lg:pb-20 hero-mesh-glow border-b border-slate-100 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative">
-      <div class="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8">
-        
-        <!-- Left Side: Connected Wi-Fi Router Network Diagram -->
-        <div class="hidden lg:flex w-72 shrink-0 items-center justify-center">
-          <img src="./hero-left.png" alt="Wi-Fi Router Network Devices" class="w-full max-w-[280px] h-auto object-contain select-none pointer-events-none drop-shadow-sm mix-blend-multiply">
-        </div>
-
-        <!-- Center Column: Main Headline, Subheadline & Action Buttons -->
-        <div class="flex-1 max-w-2xl text-center z-10 mx-auto">
-          <!-- Category Pill -->
-          <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/90 border border-slate-200 shadow-2xs text-[11px] font-semibold text-slate-700 mb-6">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span>Kontrol Akses Jaringan Lokal • Tingkat Router</span>
-          </div>
-
-          <!-- Main Heading (Bold & Crisp) -->
-          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-950 tracking-tight leading-[1.18] mb-5">
-            Kendali Penuh Keamanan Wi-Fi<br class="hidden sm:inline" /> Rumah & Usaha Anda
-          </h1>
-
-          <!-- Subheadline -->
-          <p class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto leading-relaxed mb-8">
-            Pantau seluruh perangkat yang tersambung secara instan, kenali perangkat asing, dan putus akses penyusup secara permanen di tingkat router. Tanpa perlu akses root, tanpa langganan wajib.
-          </p>
-
-          <!-- Dual CTA Buttons -->
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8">
-            <a href="./WiFiGuard.apk" download="WiFiGuard.apk" class="w-full sm:w-auto inline-flex items-center justify-center space-x-2.5 px-6 py-3.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold shadow-md transition-all">
-              <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993s-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9994.4482.9994.9993s-.4483.9997-.9994.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.4116 13.8533 8.082 12 8.082s-3.5902.3296-5.1368.868L4.841 5.4468a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3435-4.1021-2.6892-7.5743-6.1185-9.4396"/>
-              </svg>
-              <span>Unduh APK Android</span>
-            </a>
-            <a href="https://github.com/orzkiah/wifi-guard" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-3.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 text-xs sm:text-sm font-semibold transition-all shadow-2xs">
-              <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-              <span>Versi Desktop & Source Code</span>
-            </a>
-          </div>
-
-          <!-- Bottom Feature Checks -->
-          <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] font-semibold text-slate-600">
-            <span class="inline-flex items-center">
-              <svg class="w-3.5 h-3.5 text-emerald-600 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              Format APK Mandiri (4.3 MB)
-            </span>
-            <span class="inline-flex items-center">
-              <svg class="w-3.5 h-3.5 text-emerald-600 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              Android 7.0 hingga Android 15
-            </span>
-            <span class="inline-flex items-center">
-              <svg class="w-3.5 h-3.5 text-emerald-600 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              100% Bebas Iklan & Pelacak
-            </span>
-          </div>
-        </div>
-
-        <!-- Right Side: Severed Intruder Cable with Scissors Diagram -->
-        <div class="hidden lg:flex w-72 shrink-0 items-center justify-center">
-          <img src="./hero-right.png" alt="Severed Unauthorized Cable" class="w-full max-w-[280px] h-auto object-contain select-none pointer-events-none drop-shadow-sm mix-blend-multiply">
-        </div>
-
+  <!-- Hero Section -->
+  <section class="py-16 sm:py-24 border-b border-slate-100 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700 mb-6">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>Kontrol Akses Jaringan Lokal • Tingkat Router</span>
       </div>
 
-      <!-- Mobile Image Row -->
-      <div class="flex lg:hidden items-center justify-around gap-4 mt-8 opacity-90 max-w-sm mx-auto">
-        <img src="./hero-left.png" alt="Wi-Fi Router Network" class="w-32 h-auto object-contain mix-blend-multiply">
-        <img src="./hero-right.png" alt="Severed Cable" class="w-32 h-auto object-contain mix-blend-multiply">
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-950 tracking-tight leading-tight sm:leading-tight mb-6">
+        Kendali Penuh Keamanan Wi-Fi Rumah & Usaha Anda
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10">
+        Pantau seluruh perangkat yang tersambung secara instan, kenali perangkat asing, dan putus akses penyusup secara permanen di tingkat router. Tanpa perlu akses root, tanpa langganan wajib.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6">
+        <a href="./WiFiGuard.apk" download="WiFiGuard.apk" class="w-full sm:w-auto inline-flex items-center justify-center space-x-2.5 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold shadow-md transition-all">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993s-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9994.4482.9994.9993s-.4483.9997-.9994.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.4116 13.8533 8.082 12 8.082s-3.5902.3296-5.1368.868L4.841 5.4468a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3435-4.1021-2.6892-7.5743-6.1185-9.4396"/>
+          </svg>
+          <span>Unduh APK Android</span>
+        </a>
+        <a href="https://github.com/orzkiah/wifi-guard" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-3.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 text-sm font-semibold transition-all">
+          <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          <span>Versi Desktop & Source Code</span>
+        </a>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-500">
+        <span class="inline-flex items-center">
+          <svg class="w-3.5 h-3.5 text-emerald-600 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+          Format APK Mandiri (4.3 MB)
+        </span>
+        <span class="inline-flex items-center">
+          <svg class="w-3.5 h-3.5 text-emerald-600 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+          Android 7.0 hingga Android 15
+        </span>
+        <span class="inline-flex items-center">
+          <svg class="w-3.5 h-3.5 text-emerald-600 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+          100% Bebas Iklan & Pelacak
+        </span>
       </div>
     </div>
   </section>
 
   <!-- Clean UI Mockup Showcase -->
-  <section class="py-14 bg-slate-50 border-b border-slate-200">
+  <section class="py-12 bg-slate-50 border-b border-slate-200">
     <div class="max-w-5xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-8">
         <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Tampilan Antarmuka</h2>
@@ -318,6 +287,45 @@
             Sangat cocok untuk orang tua (Parental Control). Atur waktu pemutusan internet otomatis di jam tidur atau jam belajar (misal: 21.00 s/d 06.00).
           </p>
         </div>
+
+        <!-- Feature 4 -->
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white hover:border-slate-300 transition-all">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-800 mb-5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-2">Deteksi Perangkat Asing (Unknown)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Sistem secara otomatis mengklasifikasikan perangkat baru yang belum Anda beri label sebagai "Unknown", sehingga pembobol sandi Wi-Fi mudah dikenali.
+          </p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white hover:border-slate-300 transition-all">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-800 mb-5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 2.829a4.978 4.978 0 01-1.414-2.83m-1.414 5.658a9 9 0 01-2.167-9.238m7.824 2.167a1 1 0 111.414 1.414m-1.414-1.414L3 3"/>
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-2">Proteksi Diri (Self-Block Prevention)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Aplikasi secara otomatis mendeteksi alamat MAC perangkat Anda sendiri dan mencegah kesalahan pemblokiran perangkat yang sedang digunakan.
+          </p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="p-6 rounded-2xl border border-slate-200 bg-white hover:border-slate-300 transition-all">
+          <div class="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-800 mb-5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+            </svg>
+          </div>
+          <h3 class="text-base font-bold text-slate-900 mb-2">Pelepas Sesi Cepat (Clean Logout)</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Dilengkapi tombol logout instan untuk membebaskan sesi router. Anda dapat bergantian memantau jaringan dari HP maupun laptop tanpa takut sesi tersangkut.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -413,6 +421,50 @@
     </div>
   </section>
 
+  <!-- How It Works 3-Steps -->
+  <section id="cara-kerja" class="py-16 sm:py-20 border-b border-slate-200 bg-slate-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Alur Penggunaan</h2>
+        <p class="text-2xl sm:text-3xl font-bold text-slate-950 tracking-tight">
+          3 Langkah Cepat Memulai
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <div class="p-5 rounded-xl bg-white border border-slate-200 flex items-start space-x-4">
+          <span class="w-7 h-7 rounded-lg bg-slate-900 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+          <div>
+            <h4 class="text-sm font-bold text-slate-900 mb-1">Hubungkan ke Wi-Fi Rumah</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Pastikan smartphone atau laptop Anda tersambung ke jaringan Wi-Fi lokal router yang sama. Buka aplikasi WiFi Guard.
+            </p>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-xl bg-white border border-slate-200 flex items-start space-x-4">
+          <span class="w-7 h-7 rounded-lg bg-slate-900 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+          <div>
+            <h4 class="text-sm font-bold text-slate-900 mb-1">Otentikasi Kredensial Router</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Masukkan alamat IP gateway (bawaan: 192.168.1.1) serta username dan kata sandi admin router Anda. Informasi kredensial disimpan terenkripsi di perangkat Anda.
+            </p>
+          </div>
+        </div>
+
+        <div class="p-5 rounded-xl bg-white border border-slate-200 flex items-start space-x-4">
+          <span class="w-7 h-7 rounded-lg bg-slate-900 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+          <div>
+            <h4 class="text-sm font-bold text-slate-900 mb-1">Tandai & Kelola Akses Internet</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Tandai perangkat keluarga sebagai "Trusted". Bila ada perangkat asing yang tidak diizinkan, putus koneksinya dengan tombol "Block" atau pasang jadwal jam otomatis.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ Section -->
   <section id="faq" class="py-16 sm:py-20 border-b border-slate-200 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6">
@@ -444,6 +496,13 @@
             Tidak bisa. Pemblokiran bekerja pada lapisan fisik hardware (MAC Filtering) di dalam router. Router menolak komunikasi data perangkat tersebut terlepas dari kata sandi Wi-Fi yang dimasukkan.
           </p>
         </div>
+
+        <div class="border border-slate-200 rounded-xl p-5 bg-white">
+          <h4 class="text-xs sm:text-sm font-bold text-slate-900 mb-2">Apakah aplikasi ini aman dan tidak merusak router?</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            100% aman. WiFi Guard beroperasi menggunakan antarmuka resmi bawaan router milik Anda sendiri, sama persis seperti saat Anda menyetel konfigurasi melalui browser web komputer.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -454,18 +513,18 @@
       <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight mb-4">
         Mulai Amankan Jaringan Wi-Fi Anda Hari Ini
       </h2>
-      <p class="text-xs sm:text-sm text-slate-600 mb-8 max-w-xl mx-auto leading-relaxed">
+      <p class="text-sm text-slate-600 mb-8 max-w-xl mx-auto leading-relaxed">
         Unduh paket aplikasi installer APK secara langsung dan pasang di smartphone Android Anda tanpa perantara.
       </p>
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-        <a href="./WiFiGuard.apk" download="WiFiGuard.apk" class="w-full sm:w-auto inline-flex items-center justify-center space-x-2.5 px-6 py-3.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold shadow-md transition-all">
+        <a href="./WiFiGuard.apk" download="WiFiGuard.apk" class="w-full sm:w-auto inline-flex items-center justify-center space-x-2.5 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-sm font-semibold shadow-md transition-all">
           <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
             <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993s-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9994.4482.9994.9993s-.4483.9997-.9994.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.4116 13.8533 8.082 12 8.082s-3.5902.3296-5.1368.868L4.841 5.4468a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3435-4.1021-2.6892-7.5743-6.1185-9.4396"/>
           </svg>
           <span>Unduh WiFiGuard.apk (4.3 MB)</span>
         </a>
-        <a href="https://github.com/orzkiah/wifi-guard" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-3.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 text-xs sm:text-sm font-semibold transition-all">
+        <a href="https://github.com/orzkiah/wifi-guard" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-6 py-3.5 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 text-sm font-semibold transition-all">
           <span>Kunjungi Repository GitHub</span>
         </a>
       </div>
