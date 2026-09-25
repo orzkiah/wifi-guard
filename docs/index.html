@@ -77,10 +77,6 @@
   <section class="py-16 sm:py-24 border-b border-slate-100 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
 
-      <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold mb-6 shadow-sm">
-        <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-        <span>Aplikasi Sedang Diuji Coba (Closed Beta) • Maksimal 1x Unduh per Perangkat</span>
-      </div>
 
       <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-950 tracking-tight leading-tight sm:leading-tight mb-6">
         Kendali Penuh Keamanan Wi-Fi Rumah & Usaha Anda
@@ -1037,6 +1033,17 @@
       const LOCAL_CACHE_KEY = 'wifiguard_used_codes_v1';
       const DEVICE_LOCK_KEY = 'wifiguard_device_locked_v1';
 
+      // Master developer & owner test codes (unlimited use, bypasses device lock, does not burn public slots)
+      const MASTER_TEST_CODES = ['DEV-TEST-2026', 'MASTER-DEV-2026', 'VIP-TEST-2026'];
+
+      function unlockDevice() {
+        try {
+          localStorage.removeItem(DEVICE_LOCK_KEY);
+          sessionStorage.removeItem(DEVICE_LOCK_KEY);
+          document.cookie = `${DEVICE_LOCK_KEY}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+        } catch {}
+      }
+
       function hasDeviceAlreadyDownloaded() {
         try {
           if (localStorage.getItem(DEVICE_LOCK_KEY)) return true;
@@ -1135,10 +1142,10 @@
 
           if (hasDeviceAlreadyDownloaded()) {
             feedbackEl.className = 'mt-3 text-xs text-amber-700 font-semibold p-3 bg-amber-50 border border-amber-300 rounded-xl flex items-start space-x-2';
-            feedbackEl.innerHTML = '<svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> <span>Perangkat ini sudah pernah mengunduh aplikasi WiFi Guard. Kuota dibatasi khusus 1x unduh per perangkat.</span>';
-            codeInput.disabled = true;
-            verifyBtn.disabled = true;
-            verifyBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            feedbackEl.innerHTML = '<svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> <span>Perangkat ini sudah pernah mengunduh aplikasi. Kuota dibatasi 1x unduh per perangkat. Masukkan kode khusus jika ingin menguji kembali.</span>';
+            codeInput.disabled = false;
+            verifyBtn.disabled = false;
+            verifyBtn.classList.remove('opacity-50', 'cursor-not-allowed');
           } else if (remaining <= 0) {
             feedbackEl.className = 'mt-2 text-xs text-rose-600 font-semibold p-2.5 bg-rose-50 border border-rose-200 rounded-lg';
             feedbackEl.innerHTML = 'Mohon maaf, kuota 10 pengunduh resmi untuk platform ini telah habis.';
@@ -1179,12 +1186,12 @@
         if (platform === 'android') {
           modalPlatformBadge.textContent = `Versi Android APK (Closed Beta) • Sisa ${remaining} Kuota`;
           modalTitle.textContent = 'Akses Penguji Android (Beta)';
-          modalDesc.textContent = 'Aplikasi WiFi Guard saat ini berada dalam tahap Closed Beta. Kuota dibatasi khusus 1x unduh per perangkat dan slot akan berkurang secara real-time.';
+          modalDesc.textContent = 'Aplikasi WiFi Guard saat ini berada dalam tahap Closed Beta. Masukkan kode akses resmi Anda untuk mengunduh aplikasi.';
           codeInput.placeholder = 'Contoh: AND-7491-K9';
         } else {
           modalPlatformBadge.textContent = `Versi Windows Desktop (Closed Beta) • Sisa ${remaining} Kuota`;
           modalTitle.textContent = 'Akses Penguji Windows (Beta)';
-          modalDesc.textContent = 'Aplikasi WiFi Guard saat ini berada dalam tahap Closed Beta. Kuota dibatasi khusus 1x unduh per perangkat dan slot akan berkurang secara real-time.';
+          modalDesc.textContent = 'Aplikasi WiFi Guard saat ini berada dalam tahap Closed Beta. Masukkan kode akses resmi Anda untuk mengunduh aplikasi.';
           codeInput.placeholder = 'Contoh: WIN-6428-L5';
         }
 
@@ -1193,11 +1200,11 @@
 
         if (isDeviceLocked) {
           feedbackEl.className = 'mt-3 text-xs text-amber-700 font-semibold p-3 bg-amber-50 border border-amber-300 rounded-xl flex items-start space-x-2';
-          feedbackEl.innerHTML = '<svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> <span>Perangkat ini sudah pernah mengunduh aplikasi WiFi Guard. Kuota dibatasi khusus 1x unduh per perangkat.</span>';
-          codeInput.disabled = true;
-          codeInput.placeholder = 'Perangkat sudah mengunduh (Terkunci)';
-          verifyBtn.disabled = true;
-          verifyBtn.classList.add('opacity-50', 'cursor-not-allowed');
+          feedbackEl.innerHTML = '<svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> <span>Perangkat ini sudah pernah mengunduh aplikasi. Kuota dibatasi 1x unduh per perangkat. Masukkan kode khusus jika ingin menguji kembali.</span>';
+          codeInput.disabled = false;
+          codeInput.placeholder = 'Masukkan kode akses...';
+          verifyBtn.disabled = false;
+          verifyBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         } else if (remaining <= 0) {
           feedbackEl.className = 'mt-2 text-xs text-rose-600 font-semibold p-2.5 bg-rose-50 border border-rose-200 rounded-lg';
           feedbackEl.innerHTML = 'Mohon maaf, kuota 10 pengunduh resmi untuk platform ini telah habis.';
@@ -1219,7 +1226,7 @@
           testerModalCard.classList.add('scale-100');
         });
 
-        if (!isDeviceLocked && remaining > 0) {
+        if (remaining > 0) {
           setTimeout(() => codeInput.focus(), 150);
         }
       }
@@ -1257,14 +1264,45 @@
         testerForm.addEventListener('submit', async (e) => {
           e.preventDefault();
 
-          if (hasDeviceAlreadyDownloaded()) {
-            feedbackEl.className = 'mt-2.5 text-xs text-amber-700 font-semibold p-2.5 bg-amber-50 border border-amber-300 rounded-lg';
-            feedbackEl.innerHTML = 'Akses ditolak: Perangkat ini sudah pernah mengunduh berkas.';
+          const rawInput = codeInput.value.trim().toUpperCase();
+          const cleanInput = rawInput.replace(/[^A-Z0-9]/g, '');
+
+          // Check if Master / Owner Test Code
+          const isMasterCode = MASTER_TEST_CODES.some(mc => mc.replace(/[^A-Z0-9]/g, '') === cleanInput);
+          if (isMasterCode) {
+            unlockDevice();
+            feedbackEl.className = 'mt-2.5 text-xs text-emerald-600 font-semibold flex items-center space-x-1.5 bg-emerald-50 border border-emerald-200 p-2.5 rounded-lg';
+            feedbackEl.innerHTML = '<svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> <span>Kode Khusus Penguji Aktif! Memulai unduhan...</span>';
+            codeInput.classList.add('border-emerald-500');
+
+            verifyBtn.classList.remove('bg-slate-900', 'hover:bg-slate-800');
+            verifyBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
+            verifyText.textContent = 'Mengunduh Berkas...';
+
+            const targetUrl = DOWNLOAD_URLS[currentTargetPlatform];
+            const fileName = currentTargetPlatform === 'android' ? 'WiFiGuard.apk' : 'WiFiGuard-Setup.exe';
+            const dlLink = document.createElement('a');
+            dlLink.href = targetUrl;
+            dlLink.download = fileName;
+            document.body.appendChild(dlLink);
+            dlLink.click();
+            document.body.removeChild(dlLink);
+
+            setTimeout(() => {
+              closeTesterModal();
+              verifyBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700');
+              verifyBtn.classList.add('bg-slate-900', 'hover:bg-slate-800');
+              verifyText.textContent = 'Verifikasi & Mulai Unduh';
+            }, 2000);
             return;
           }
 
-          const rawInput = codeInput.value.trim().toUpperCase();
-          const cleanInput = rawInput.replace(/[^A-Z0-9]/g, '');
+          if (hasDeviceAlreadyDownloaded()) {
+            feedbackEl.className = 'mt-2.5 text-xs text-amber-700 font-semibold p-2.5 bg-amber-50 border border-amber-300 rounded-lg';
+            feedbackEl.innerHTML = 'Akses ditolak: Perangkat ini sudah pernah mengunduh berkas. Kuota dibatasi khusus 1x unduh per perangkat.';
+            return;
+          }
+
           const allowedCodes = ACCESS_CODES[currentTargetPlatform] || [];
 
           // Find matching canonical code

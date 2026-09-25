@@ -150,9 +150,35 @@ def create_docx(filename):
       </w:r>
     </w:p>
     <w:p>
+      <w:pPr><w:ind w:left="360"/><w:spacing w:after="80"/></w:pPr>
+      <w:r><w:rPr><w:b/><w:sz w:val="20"/><w:color w:val="059669"/></w:rPr>
+        <w:t>• KODE KHUSUS PENGUJI UTAMA (MASTER TEST CODE): DEV-TEST-2026 (Dapat digunakan tanpa batas untuk menguji kedua platform Android &amp; Windows tanpa memotong kuota publik).</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
       <w:pPr><w:ind w:left="360"/><w:spacing w:after="300"/></w:pPr>
       <w:r><w:rPr><w:sz w:val="20"/><w:color w:val="475569"/></w:rPr>
         <w:t>• Tautan Situs Resmi: https://orzkiah.github.io/wifi-guard/</w:t>
+      </w:r>
+    </w:p>
+
+    <!-- Section 0: Master Code Box -->
+    <w:p>
+      <w:pPr><w:spacing w:before="200" w:after="140"/></w:pPr>
+      <w:r><w:rPr><w:b/><w:sz w:val="24"/><w:color w:val="059669"/></w:rPr>
+        <w:t>★ Kode Akses Khusus Pemilik / Penguji Utama</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr><w:spacing w:after="100"/></w:pPr>
+      <w:r><w:rPr><w:sz w:val="20"/><w:color w:val="334155"/></w:rPr>
+        <w:t>Kode ini dibuat secara eksklusif untuk Anda guna menguji proses unduhan kapan saja (Windows maupun Android) tanpa terhalang proteksi perangkat dan tanpa mengurangi 10 slot kuota publik.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr><w:jc w:val="center"/><w:spacing w:before="120" w:after="240"/></w:pPr>
+      <w:r><w:rPr><w:rFonts w:ascii="Consolas" w:hAnsi="Consolas"/><w:b/><w:sz w:val="32"/><w:color w:val="059669"/></w:rPr>
+        <w:t>DEV-TEST-2026</w:t>
       </w:r>
     </w:p>
 
