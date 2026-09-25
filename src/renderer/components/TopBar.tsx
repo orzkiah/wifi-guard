@@ -63,6 +63,14 @@ export const TopBar: React.FC = () => {
           {isConnected && (
             <span className="hidden md:inline text-[11px] text-slate-400 font-mono">({latency})</span>
           )}
+
+          <div className="hidden sm:block h-4 w-[1px] bg-slate-800" />
+
+          {/* Beta Testing Badge */}
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30 text-[10px] sm:text-[11px] font-bold tracking-wider">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+            BETA UJI COBA
+          </span>
         </div>
       </div>
 

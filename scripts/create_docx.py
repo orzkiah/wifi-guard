@@ -28,7 +28,7 @@ def create_docx(filename):
     ]
 
     windows_codes = [
-        ("1", "WIN-8319-A5", "Windows Desktop", "Aktif (1x Unduh)"),
+        ("1", "WIN-6428-L5", "Windows Desktop", "Aktif (1x Unduh)"),
         ("2", "WIN-4720-B8", "Windows Desktop", "Aktif (1x Unduh)"),
         ("3", "WIN-9541-C2", "Windows Desktop", "Aktif (1x Unduh)"),
         ("4", "WIN-2168-D7", "Windows Desktop", "Aktif (1x Unduh)"),
@@ -135,6 +135,18 @@ def create_docx(filename):
       <w:pPr><w:ind w:left="360"/><w:spacing w:after="80"/></w:pPr>
       <w:r><w:rPr><w:sz w:val="20"/><w:color w:val="475569"/></w:rPr>
         <w:t>• Sistem Kuota Real-time: Setiap kode akses hanya dapat digunakan 1x untuk mengunduh. Begitu kode berhasil diverifikasi, slot kuota di website otomatis berkurang secara langsung (real-time).</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr><w:ind w:left="360"/><w:spacing w:after="80"/></w:pPr>
+      <w:r><w:rPr><w:sz w:val="20"/><w:color w:val="475569"/></w:rPr>
+        <w:t>• Batasan Perangkat: Setiap perangkat dibatasi ketat hanya dapat mengunduh 1x (Device Lock) demi keadilan seluruh penguji.</w:t>
+      </w:r>
+    </w:p>
+    <w:p>
+      <w:pPr><w:ind w:left="360"/><w:spacing w:after="80"/></w:pPr>
+      <w:r><w:rPr><w:sz w:val="20"/><w:color w:val="0284C7"/></w:rPr>
+        <w:t>• Pembaruan Kode Windows: Kode WIN-8319-A5 telah selesai diuji dan digantikan dengan kode baru WIN-6428-L5 sehingga kuota tetap utuh 10 slot.</w:t>
       </w:r>
     </w:p>
     <w:p>

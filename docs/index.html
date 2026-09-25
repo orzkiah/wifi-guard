@@ -47,10 +47,10 @@
   <!-- Top Navigation -->
   <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
+      <div class="flex items-center space-x-2.5">
         <img src="./icon.png" alt="WiFi Guard Logo" class="w-8 h-8 rounded-lg border border-slate-200 shadow-sm">
         <span class="text-base font-bold tracking-tight text-slate-900">WiFi Guard</span>
-        <span class="hidden sm:inline-block text-[11px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">v1.0</span>
+        <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded border border-amber-300">BETA TEST</span>
       </div>
 
       <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
@@ -76,6 +76,11 @@
   <!-- Hero Section -->
   <section class="py-16 sm:py-24 border-b border-slate-100 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+
+      <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold mb-6 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+        <span>Aplikasi Sedang Diuji Coba (Closed Beta) • Maksimal 1x Unduh per Perangkat</span>
+      </div>
 
       <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-950 tracking-tight leading-tight sm:leading-tight mb-6">
         Kendali Penuh Keamanan Wi-Fi Rumah & Usaha Anda
@@ -991,31 +996,35 @@
       // -------------------------------------------------------------
       // Real-Time Cloud Gatekeeper (10 Android & 10 Windows Single-Use Tokens)
       // -------------------------------------------------------------
+      const ACTIVE_ANDROID_CODES = [
+        'AND-7491-K9',
+        'AND-3820-M4',
+        'AND-9154-P7',
+        'AND-6208-T2',
+        'AND-4371-X5',
+        'AND-8592-W3',
+        'AND-1746-Q8',
+        'AND-5930-R1',
+        'AND-2683-V6',
+        'AND-9017-Z4'
+      ];
+
+      const ACTIVE_WINDOWS_CODES = [
+        'WIN-6428-L5', // Kode Baru Pengganti WIN-8319-A5
+        'WIN-4720-B8',
+        'WIN-9541-C2',
+        'WIN-2168-D7',
+        'WIN-6395-E3',
+        'WIN-1804-F9',
+        'WIN-7532-G1',
+        'WIN-3947-H6',
+        'WIN-8270-J4',
+        'WIN-5163-K8'
+      ];
+
       const ACCESS_CODES = {
-        android: [
-          'AND-7491-K9',
-          'AND-3820-M4',
-          'AND-9154-P7',
-          'AND-6208-T2',
-          'AND-4371-X5',
-          'AND-8592-W3',
-          'AND-1746-Q8',
-          'AND-5930-R1',
-          'AND-2683-V6',
-          'AND-9017-Z4'
-        ],
-        windows: [
-          'WIN-8319-A5',
-          'WIN-4720-B8',
-          'WIN-9541-C2',
-          'WIN-2168-D7',
-          'WIN-6395-E3',
-          'WIN-1804-F9',
-          'WIN-7532-G1',
-          'WIN-3947-H6',
-          'WIN-8270-J4',
-          'WIN-5163-K8'
-        ]
+        android: ACTIVE_ANDROID_CODES,
+        windows: [...ACTIVE_WINDOWS_CODES, 'WIN-8319-A5'] // WIN-8319-A5 dikenali sebagai kode yang sudah terpakai
       };
 
       const DOWNLOAD_URLS = {
@@ -1025,15 +1034,38 @@
 
       const KV_TOKEN = 'wifiguard_gatekeeper_v1';
       const KV_URL = 'https://keyvalue.immanuel.co/api/KeyVal/';
-      const TOTAL_SLOTS = 10;
       const LOCAL_CACHE_KEY = 'wifiguard_used_codes_v1';
+      const DEVICE_LOCK_KEY = 'wifiguard_device_locked_v1';
+
+      function hasDeviceAlreadyDownloaded() {
+        try {
+          if (localStorage.getItem(DEVICE_LOCK_KEY)) return true;
+          if (sessionStorage.getItem(DEVICE_LOCK_KEY)) return true;
+          if (document.cookie.split(';').some(c => c.trim().startsWith(DEVICE_LOCK_KEY + '='))) return true;
+        } catch {}
+        return false;
+      }
+
+      function lockDevice(code, platform) {
+        try {
+          const payload = JSON.stringify({
+            downloaded: true,
+            code: code,
+            platform: platform,
+            time: new Date().toISOString()
+          });
+          localStorage.setItem(DEVICE_LOCK_KEY, payload);
+          sessionStorage.setItem(DEVICE_LOCK_KEY, payload);
+          document.cookie = `${DEVICE_LOCK_KEY}=1; path=/; max-age=31536000; SameSite=Lax`;
+        } catch {}
+      }
 
       function getLocalCache() {
         try {
           const raw = localStorage.getItem(LOCAL_CACHE_KEY);
-          return raw ? JSON.parse(raw) : [];
+          return raw ? JSON.parse(raw) : ['WIN-8319-A5'];
         } catch {
-          return [];
+          return ['WIN-8319-A5'];
         }
       }
 
@@ -1044,6 +1076,11 @@
       }
 
       let activeUsedCodes = getLocalCache();
+      // Ensure WIN-8319-A5 is permanently marked as used
+      if (!activeUsedCodes.includes('WIN-8319-A5')) {
+        activeUsedCodes.push('WIN-8319-A5');
+      }
+
       let currentTargetPlatform = 'android';
 
       const testerModal = document.getElementById('tester-modal');
@@ -1058,11 +1095,11 @@
       const verifyText = document.getElementById('btn-verify-text');
 
       function computeSlots() {
-        const androidUsed = activeUsedCodes.filter(c => c.startsWith('AND-')).length;
-        const windowsUsed = activeUsedCodes.filter(c => c.startsWith('WIN-')).length;
+        const androidRem = ACTIVE_ANDROID_CODES.filter(c => !activeUsedCodes.includes(c)).length;
+        const windowsRem = ACTIVE_WINDOWS_CODES.filter(c => !activeUsedCodes.includes(c)).length;
         return {
-          android: Math.max(0, TOTAL_SLOTS - androidUsed),
-          windows: Math.max(0, TOTAL_SLOTS - windowsUsed)
+          android: Math.max(0, androidRem),
+          windows: Math.max(0, windowsRem)
         };
       }
 
@@ -1093,15 +1130,23 @@
           const isAndroid = currentTargetPlatform === 'android';
           const remaining = isAndroid ? slots.android : slots.windows;
           modalPlatformBadge.textContent = isAndroid
-            ? `Versi Android APK • Sisa ${remaining} dari 10 Kuota`
-            : `Versi Windows Desktop • Sisa ${remaining} dari 10 Kuota`;
+            ? `Versi Android APK (Closed Beta) • Sisa ${remaining} Kuota`
+            : `Versi Windows Desktop (Closed Beta) • Sisa ${remaining} Kuota`;
 
-          if (remaining <= 0) {
+          if (hasDeviceAlreadyDownloaded()) {
+            feedbackEl.className = 'mt-3 text-xs text-amber-700 font-semibold p-3 bg-amber-50 border border-amber-300 rounded-xl flex items-start space-x-2';
+            feedbackEl.innerHTML = '<svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> <span>Perangkat ini sudah pernah mengunduh aplikasi WiFi Guard. Kuota dibatasi khusus 1x unduh per perangkat.</span>';
+            codeInput.disabled = true;
+            verifyBtn.disabled = true;
+            verifyBtn.classList.add('opacity-50', 'cursor-not-allowed');
+          } else if (remaining <= 0) {
             feedbackEl.className = 'mt-2 text-xs text-rose-600 font-semibold p-2.5 bg-rose-50 border border-rose-200 rounded-lg';
             feedbackEl.innerHTML = 'Mohon maaf, kuota 10 pengunduh resmi untuk platform ini telah habis.';
+            codeInput.disabled = true;
             verifyBtn.disabled = true;
             verifyBtn.classList.add('opacity-50', 'cursor-not-allowed');
           } else {
+            codeInput.disabled = false;
             verifyBtn.disabled = false;
             verifyBtn.classList.remove('opacity-50', 'cursor-not-allowed');
           }
@@ -1115,13 +1160,12 @@
             const jsonText = await res.json();
             const remoteArray = typeof jsonText === 'string' ? JSON.parse(jsonText) : jsonText;
             if (Array.isArray(remoteArray)) {
-              activeUsedCodes = Array.from(new Set([...activeUsedCodes, ...remoteArray]));
+              activeUsedCodes = Array.from(new Set([...activeUsedCodes, ...remoteArray, 'WIN-8319-A5']));
               setLocalCache(activeUsedCodes);
               updateSlotBadges();
             }
           }
         } catch {
-          // Fallback to local cache silently
           updateSlotBadges();
         }
       }
@@ -1130,30 +1174,40 @@
         currentTargetPlatform = platform;
         const slots = computeSlots();
         const remaining = platform === 'android' ? slots.android : slots.windows;
+        const isDeviceLocked = hasDeviceAlreadyDownloaded();
 
         if (platform === 'android') {
-          modalPlatformBadge.textContent = `Versi Android APK • Sisa ${remaining} dari 10 Kuota`;
-          modalTitle.textContent = 'Akses Penguji Android';
-          modalDesc.textContent = 'Versi APK dibatasi khusus untuk 10 penguji resmi. Setiap kode hanya berlaku untuk 1x unduhan dan kuota slot akan berkurang secara real-time.';
+          modalPlatformBadge.textContent = `Versi Android APK (Closed Beta) • Sisa ${remaining} Kuota`;
+          modalTitle.textContent = 'Akses Penguji Android (Beta)';
+          modalDesc.textContent = 'Aplikasi WiFi Guard saat ini berada dalam tahap Closed Beta. Kuota dibatasi khusus 1x unduh per perangkat dan slot akan berkurang secara real-time.';
           codeInput.placeholder = 'Contoh: AND-7491-K9';
         } else {
-          modalPlatformBadge.textContent = `Versi Windows Desktop • Sisa ${remaining} dari 10 Kuota`;
-          modalTitle.textContent = 'Akses Penguji Windows';
-          modalDesc.textContent = 'Versi Windows Installer dibatasi khusus untuk 10 penguji resmi. Setiap kode hanya berlaku untuk 1x unduhan dan kuota slot akan berkurang secara real-time.';
-          codeInput.placeholder = 'Contoh: WIN-8319-A5';
+          modalPlatformBadge.textContent = `Versi Windows Desktop (Closed Beta) • Sisa ${remaining} Kuota`;
+          modalTitle.textContent = 'Akses Penguji Windows (Beta)';
+          modalDesc.textContent = 'Aplikasi WiFi Guard saat ini berada dalam tahap Closed Beta. Kuota dibatasi khusus 1x unduh per perangkat dan slot akan berkurang secara real-time.';
+          codeInput.placeholder = 'Contoh: WIN-6428-L5';
         }
 
         codeInput.value = '';
-        feedbackEl.className = 'mt-2 text-xs hidden';
-        feedbackEl.innerHTML = '';
         codeInput.classList.remove('border-rose-400', 'focus:ring-rose-500', 'border-emerald-500');
 
-        if (remaining <= 0) {
+        if (isDeviceLocked) {
+          feedbackEl.className = 'mt-3 text-xs text-amber-700 font-semibold p-3 bg-amber-50 border border-amber-300 rounded-xl flex items-start space-x-2';
+          feedbackEl.innerHTML = '<svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> <span>Perangkat ini sudah pernah mengunduh aplikasi WiFi Guard. Kuota dibatasi khusus 1x unduh per perangkat.</span>';
+          codeInput.disabled = true;
+          codeInput.placeholder = 'Perangkat sudah mengunduh (Terkunci)';
+          verifyBtn.disabled = true;
+          verifyBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        } else if (remaining <= 0) {
           feedbackEl.className = 'mt-2 text-xs text-rose-600 font-semibold p-2.5 bg-rose-50 border border-rose-200 rounded-lg';
           feedbackEl.innerHTML = 'Mohon maaf, kuota 10 pengunduh resmi untuk platform ini telah habis.';
+          codeInput.disabled = true;
           verifyBtn.disabled = true;
           verifyBtn.classList.add('opacity-50', 'cursor-not-allowed');
         } else {
+          feedbackEl.className = 'mt-2 text-xs hidden';
+          feedbackEl.innerHTML = '';
+          codeInput.disabled = false;
           verifyBtn.disabled = false;
           verifyBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         }
@@ -1165,7 +1219,9 @@
           testerModalCard.classList.add('scale-100');
         });
 
-        setTimeout(() => codeInput.focus(), 150);
+        if (!isDeviceLocked && remaining > 0) {
+          setTimeout(() => codeInput.focus(), 150);
+        }
       }
 
       function closeTesterModal() {
@@ -1200,6 +1256,13 @@
       if (testerForm) {
         testerForm.addEventListener('submit', async (e) => {
           e.preventDefault();
+
+          if (hasDeviceAlreadyDownloaded()) {
+            feedbackEl.className = 'mt-2.5 text-xs text-amber-700 font-semibold p-2.5 bg-amber-50 border border-amber-300 rounded-lg';
+            feedbackEl.innerHTML = 'Akses ditolak: Perangkat ini sudah pernah mengunduh berkas.';
+            return;
+          }
+
           const rawInput = codeInput.value.trim().toUpperCase();
           const cleanInput = rawInput.replace(/[^A-Z0-9]/g, '');
           const allowedCodes = ACCESS_CODES[currentTargetPlatform] || [];
@@ -1208,7 +1271,6 @@
           const matchedCode = allowedCodes.find(c => c.replace(/[^A-Z0-9]/g, '') === cleanInput);
 
           if (!matchedCode) {
-            // Invalid code
             feedbackEl.className = 'mt-2.5 text-xs text-rose-600 font-semibold flex items-center space-x-1.5 bg-rose-50 border border-rose-200 p-2.5 rounded-lg';
             feedbackEl.innerHTML = '<svg class="w-4 h-4 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> <span>Kode tidak valid atau salah untuk versi ' + (currentTargetPlatform === 'android' ? 'Android' : 'Windows') + '.</span>';
             codeInput.classList.add('border-rose-400', 'focus:ring-rose-500');
@@ -1220,26 +1282,26 @@
           // Check if already used
           if (activeUsedCodes.includes(matchedCode)) {
             feedbackEl.className = 'mt-2.5 text-xs text-rose-600 font-semibold flex items-center space-x-1.5 bg-rose-50 border border-rose-200 p-2.5 rounded-lg';
-            feedbackEl.innerHTML = '<svg class="w-4 h-4 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> <span>Kode ini sudah pernah digunakan oleh penguji lain. Kuota kode ini telah terpakai!</span>';
+            feedbackEl.innerHTML = '<svg class="w-4 h-4 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> <span>Kode ' + matchedCode + ' sudah pernah digunakan. Kuota kode ini telah hangus! (1 kode = 1x pakai)</span>';
             codeInput.classList.add('border-rose-400', 'focus:ring-rose-500');
             codeInput.focus();
             return;
           }
 
-          // Check remaining platform slots
           const currentSlots = computeSlots();
           if (currentSlots[currentTargetPlatform] <= 0) {
-            feedbackEl.className = 'mt-2.5 text-xs text-rose-600 font-semibold flex items-center space-x-1.5 bg-rose-50 border border-rose-200 p-2.5 rounded-lg';
-            feedbackEl.innerHTML = 'Mohon maaf, seluruh 10 kuota untuk platform ini sudah habis terpakai.';
+            feedbackEl.className = 'mt-2.5 text-xs text-rose-600 font-semibold p-2.5 bg-rose-50 border border-rose-200 rounded-lg';
+            feedbackEl.innerHTML = 'Mohon maaf, seluruh kuota pengunduh untuk platform ini sudah habis.';
             return;
           }
 
-          // SUCCESS: Burn code immediately (Real-Time Slot Decrease!)
+          // SUCCESS: Burn code immediately & lock device
           activeUsedCodes.push(matchedCode);
           setLocalCache(activeUsedCodes);
-          updateSlotBadges(); // Real-time UI update!
+          lockDevice(matchedCode, currentTargetPlatform);
+          updateSlotBadges();
 
-          // Broadcast to Cloud KV so all other devices see the slot decrement
+          // Sync to Cloud KV
           try {
             fetch(`${KV_URL}UpdateValue/${KV_TOKEN}/used_codes/${encodeURIComponent(JSON.stringify(activeUsedCodes))}`, {
               method: 'POST'
@@ -1250,14 +1312,14 @@
           const remainingNow = currentTargetPlatform === 'android' ? newSlots.android : newSlots.windows;
 
           feedbackEl.className = 'mt-2.5 text-xs text-emerald-600 font-semibold flex items-center space-x-1.5 bg-emerald-50 border border-emerald-200 p-2.5 rounded-lg';
-          feedbackEl.innerHTML = '<svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> <span>Kode terverifikasi! Kuota berkurang (Sisa: ' + remainingNow + '). Memulai unduhan...</span>';
+          feedbackEl.innerHTML = '<svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> <span>Kode valid! Kuota terpotong (Sisa: ' + remainingNow + '). Memulai unduhan...</span>';
           codeInput.classList.add('border-emerald-500');
 
           verifyBtn.classList.remove('bg-slate-900', 'hover:bg-slate-800');
           verifyBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-700');
           verifyText.textContent = 'Mengunduh Berkas...';
 
-          // Trigger file download
+          // Trigger download
           const targetUrl = DOWNLOAD_URLS[currentTargetPlatform];
           const fileName = currentTargetPlatform === 'android' ? 'WiFiGuard.apk' : 'WiFiGuard-Setup.exe';
           const dlLink = document.createElement('a');
@@ -1276,10 +1338,9 @@
         });
       }
 
-      // Initialize slot counters from cloud & local cache
+      // Initialize slot counters
       updateSlotBadges();
       fetchLiveUsedCodes();
-      // Poll every 10 seconds to update live slots if other users download
       setInterval(fetchLiveUsedCodes, 10000);
 
       // Initialize first tab

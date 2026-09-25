@@ -94,9 +94,12 @@ export const Sidebar: React.FC = () => {
           </div>
           <div>
             <h1 className="font-bold text-base tracking-wide text-white flex items-center gap-1.5">
-              WIFI GUARD
+              <span>WIFI GUARD</span>
+              <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 font-black tracking-wider">
+                BETA
+              </span>
             </h1>
-            <p className="text-[11px] text-slate-400 font-medium">Access & Device Shield</p>
+            <p className="text-[10px] text-amber-300/80 font-medium">Versi Uji Coba (Closed Beta)</p>
           </div>
         </div>
 

@@ -171,13 +171,31 @@ export const SettingsView: React.FC = () => {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="px-6 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition-all flex items-center gap-2 shadow-md shadow-sky-600/20"
+            className="px-6 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold transition-all flex items-center gap-2 shadow-md shadow-sky-600/20 cursor-pointer"
           >
             <Save className="w-4 h-4" />
             <span>Save Settings</span>
           </button>
         </div>
       </form>
+
+      {/* Beta Program & Version Card */}
+      <div className="p-4 sm:p-5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-slate-200">WiFi Guard</span>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold uppercase tracking-wider">
+              BETA v1.0.0
+            </span>
+          </div>
+          <p className="text-[11px] text-slate-400 mt-0.5">
+            Aplikasi ini sedang dalam program pengujian tertutup (Closed Beta Test).
+          </p>
+        </div>
+        <div className="text-[11px] text-slate-500 font-mono self-start sm:self-auto">
+          Build 2026.09.25 • Single-User Device License
+        </div>
+      </div>
     </div>
   );
 };
